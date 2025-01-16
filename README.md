@@ -1,1 +1,1 @@
-# project-2-baby-chart
+# Project 2 - Baby Shower Guest Management System
