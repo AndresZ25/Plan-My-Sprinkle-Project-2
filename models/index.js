@@ -1,3 +1,9 @@
+const sequelize = require('../config/connection');
 const User = require('./User');
 
-module.exports = { User };
+const db = {
+  sequelize,
+  User,
+};
+
+module.exports = db;
