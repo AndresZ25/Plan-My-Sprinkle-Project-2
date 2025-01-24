@@ -1,132 +1,27 @@
-<!-- admin.handlebars -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Baby Shower Guest Management</title>
-</head>
-<body>
-    <header>
-        <h1>Baby Shower Guest List</h1>
-    </header>
-
-    <section>
-        <h2>Guest List</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Dietary Preference</th>
-                    <th>RSVP Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each guests}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{email}}</td>
-                        <td>{{phone}}</td>
-                        <td>{{dietaryPreference}}</td>
-                        <td>
-                            {{#if (eq RSVP "Yes")}} 
-                                Confirmed
-                            {{else if (eq RSVP "No")}} 
-                                Not Attending
-                            {{else}} 
-                                Pending
-                            {{/if}}
-                        </td>
-                        <td>
-                            <button onclick="updateRSVP('{{_id}}', 'Yes')">Confirm</button>
-                            <button onclick="updateRSVP('{{_id}}', 'No')">Decline</button>
-                        </td>
-                    </tr>
-                {{else}}
-                    <tr>
-                        <td colspan="6">No guests found.</td>
-                    </tr>
-                {{/each}}
-            </tbody>
-        </table>
-    </section>
-
-    <section>
-        <h2>Send Invitation</h2>
-        <form id="send-invite-form">
-            <label for="guestEmail">Guest Email:</label>
-            <input type="email" id="guestEmail" name="guestEmail" required>
-            <label for="guestName">Guest Name:</label>
-            <input type="text" id="guestName" name="guestName" required>
-            <button type="submit">Send Invitation</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Baby Shower Management</p>
-    </footer>
-
-    <script>
-        // Handling RSVP updates via JavaScript
-        function updateRSVP(guestId, newRSVP) {
-            fetch(`/api/guests/${guestId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ RSVP: newRSVP })
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('RSVP updated!');
-                window.location.reload();  // Refresh the page to reflect changes
-            })
-            .catch(error => alert('Error updating RSVP.'));
-        }
-
-        // Sending invitations
-        document.getElementById('send-invite-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const guestEmail = document.getElementById('guestEmail').value;
-            const guestName = document.getElementById('guestName').value;
-
-            fetch('/api/invite', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ guestEmail, guestName })
-            })
-            .then(response => response.json())
-            .then(data => alert('Invitation sent!'))
-            .catch(error => alert('Error sending invitation.'));
-        });
-    </script>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="/styles.css">
-    <!-- Include Chart.js library from CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-    <h1>Admin Dashboard: Baby Shower RSVP</h1>
-    <p>Manage your guest list and view statistics.</p>
-    
-    <!-- Canvas for the RSVP Chart -->
-    <canvas id="rsvpChart" width="400" height="400"></canvas>
-    
-    <script src="/scripts.js"></script>
-</body>
-</html>
-
+<h1>Baby Shower Admin Dashboard</h1>
+<h2>Guest List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Attendees</th>
+      <th>Dietary Preferences</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each guests}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.attendees}}</td>
+      <td>{{this.dietaryPreferences}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<canvas id="rsvpChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Chart.js code for RSVP visualization
+</script>
