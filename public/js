@@ -1,15 +1,14 @@
 window.onload = function() {
-    // Sample data: These values should come from your backend (e.g., the guest list)
     const rsvpData = {
         attending: 15,  // Example: 15 people attending
         notAttending: 5, // Example: 5 people not attending
         totalGuests: 20  // Example: 20 people in total
     };
 
-    // Get the canvas element
+    
     const ctx = document.getElementById('rsvpChart').getContext('2d');
 
-    // Create the chart with the sample data
+   
     const rsvpChart = new Chart(ctx, {
         type: 'pie',  // Pie chart (you could also use 'bar', 'line', etc.)
         data: {
