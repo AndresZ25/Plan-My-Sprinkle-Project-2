@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const guestForm = document.getElementById('guest-form');
     const guestTable = document.getElementById('guest-table').getElementsByTagName('tbody')[0];
 
-    // Load stored guests from localStorage (if any)
+   
     const loadGuests = () => {
         const storedGuests = JSON.parse(localStorage.getItem('guests')) || [];
         storedGuests.forEach(guest => {
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Add a new guest to the table
+    
     const addGuestToTable = (name, email, rsvp) => {
         const row = guestTable.insertRow();
         row.insertCell(0).textContent = name;
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         row.insertCell(2).textContent = rsvp;
     };
 
-    // Handle form submission
+    
     guestForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -26,16 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const guestEmail = document.getElementById('guest-email').value;
         const guestRSVP = document.getElementById('guest-rsvp').value;
 
-        // Validate form inputs
+        
         if (!guestName || !guestEmail) {
             alert('Please fill in both name and email.');
             return;
         }
 
-        // Add the new guest to the table
+       
         addGuestToTable(guestName, guestEmail, guestRSVP);
 
-        // Save the guest to localStorage
+        
         const newGuest = {
             name: guestName,
             email: guestEmail,
@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         storedGuests.push(newGuest);
         localStorage.setItem('guests', JSON.stringify(storedGuests));
 
-        // Clear the form
+        
         guestForm.reset();
     });
 
-    // Initial loading of guests when the page loads
+    
     loadGuests();
 });
