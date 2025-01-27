@@ -23,21 +23,6 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = await User.create({
-      username: req.body.username,
-      password: hashedPassword,
-      role: req.body.role || 'user', 
-    });
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating user', err });
-  }
-});
-
-
-router.post('/login', async (req, res) => {
-  try {
     const user = await User.findOne({ where: { username: req.body.username } });
 
     if (!user) {
