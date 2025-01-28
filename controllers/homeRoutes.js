@@ -34,7 +34,7 @@ router.get('/login', (req, res) => {
 
 
 router.get('/admin', isAuthenticated, (req, res) => {
-  res.render('admin'); 
+  res.render('admin',{guests:[{name:"Andres"}]}); 
 
 });
 
