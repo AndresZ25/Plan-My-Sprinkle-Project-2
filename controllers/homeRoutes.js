@@ -7,7 +7,7 @@ const isAuthenticated = (req, res, next) => {
   if (req.session && req.session.userId) {
     next();
   } else {
-    res.status(401).json({ message: 'Unauthorized: Please log in to access this page' });
+    return res.redirect('/login');  
   }
 };
 
@@ -27,10 +27,9 @@ router.get('/', (req, res) => {
 
 
 router.get('/login', (req, res) => {
-  res.render(''); 
+  res.render('login'); 
 
 });
-
 
 
 

@@ -18,12 +18,12 @@
     </h2>
     
  <nav>
-    {{#if session.userId}}
-      <a href="/logout">Logout</a>
-    {{else}}
-      <a href="/login">Login</a>
-    {{/if}}
-  </nav>
+  {{#if session.userId}}
+    <a href="/user/logout" method="POST">Logout</a>
+  {{else}}
+    <a href="/login">Login</a>
+  {{/if}}
+</nav>
 
   </header>
   <main class="container container-fluid mt-5">
