@@ -12,3 +12,4 @@ router.delete('/rsvp/:eventId/:guestEmail', rsvpController.cancelRSVP);
 router.get('/rsvp/guest/:guestEmail', rsvpController.getGuestRSVP);
 
 module.exports = router;
+
