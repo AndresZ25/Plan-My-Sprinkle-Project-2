@@ -1,9 +1,13 @@
-const client = require('/Users/natgonza/Desktop/plan-my-sprinkle/Plan-My-Sprinkle-Project-2/config/connection.js');
+const client = require('../../config/connection');
+// ('/Users/natgonza/Desktop/plan-my-sprinkle/Plan-My-Sprinkle-Project-2/config/connection.js');
+
 
 exports.getEvents = async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM events');
-        res.json(result.rows);
+        
+
+res.json(result.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
@@ -11,27 +15,60 @@ exports.getEvents = async (req, res) => {
 };
 
 exports.createRSVP = async (req, res) => {
-    const { event_id, guest_name, guest_email } = req.body;
+    const { event_id, guest_name, guest_email, attending } = req.body;
 
-    if (!event_id || !guest_name || !guest_email) {
+    // Log the values to check the data coming from the frontend
+    console.log('Received RSVP data:', { event_id, guest_name, guest_email, attending });
+
+    if (!event_id || !guest_name || !guest_email || !attending) {
         return res.status(400).json({ message: 'Missing required fields' });
     }
 
     try {
-       
         const checkRSVP = await client.query('SELECT * FROM rsvps WHERE event_id = $1 AND guest_email = $2', [event_id, guest_email]);
         if (checkRSVP.rowCount > 0) {
             return res.status(400).json({ message: 'You have already RSVP\'d to this event' });
         }
 
-        
-        const result = await client.query('INSERT INTO rsvps (event_id, guest_name, guest_email) VALUES ($1, $2, $3) RETURNING *', [event_id, guest_name, guest_email]);
+        const result = await client.query(
+            'INSERT INTO rsvps (event_id, guest_name, guest_email, attending) VALUES ($1, $2, $3, $4) RETURNING *', 
+            [event_id, guest_name, guest_email, attending]
+        );
+
+        console.log('RSVP inserted:', result.rows[0]); // Log inserted data
+
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error occurred during RSVP submission:', err.message); // More detailed error logging
+        res.status(500).json({ message: 'Server error', error: err.message });
     }
 };
+
+
+
+
+// exports.createRSVP = async (req, res) => {
+//     const { event_id, guest_name, guest_email } = req.body;
+
+//     if (!event_id || !guest_name || !guest_email) {
+//         return res.status(400).json({ message: 'Missing required fields' });
+//     }
+
+//     try {
+       
+//         const checkRSVP = await client.query('SELECT * FROM rsvps WHERE event_id = $1 AND guest_email = $2', [event_id, guest_email]);
+//         if (checkRSVP.rowCount > 0) {
+//             return res.status(400).json({ message: 'You have already RSVP\'d to this event' });
+//         }
+
+        
+//         const result = await client.query('INSERT INTO rsvps (event_id, guest_name, guest_email) VALUES ($1, $2, $3) RETURNING *', [event_id, guest_name, guest_email]);
+//         res.status(201).json(result.rows[0]);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// };
 
 
 exports.getRSVPList = async (req, res) => {

@@ -8,6 +8,8 @@ const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const rsvpRoutes = require('./controllers/api/rsvpRoutes');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -49,6 +51,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/api', rsvpRoutes);
 
 // Use routes
 console.log('Routes:', routes); // Debug log
