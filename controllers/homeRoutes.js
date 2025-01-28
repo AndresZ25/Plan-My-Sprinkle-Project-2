@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Guest = require('../models/guest'); 
 
 
 const isAuthenticated = (req, res, next) => {
@@ -32,12 +33,26 @@ router.get('/login', (req, res) => {
 });
 
 
+router.get('/admin', isAuthenticated, async (req, res) => {
+  try {
+    
+    const guestData = await Guest.findAll().catch((err) => {
+      res.json(err);
+    });
 
-router.get('/admin', isAuthenticated, (req, res) => {
-  res.render('admin',{guests:[{name:"Andres"}]}); 
-
+    const guests = guestData.map((guest) => guest.get({ plain: true }));
+    
+    res.render('admin', { guests });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 
+
+// router.get('/admin', isAuthenticated, (req, res) => {
+//   res.render('admin',{guests:[{name:"Andres"}]}); 
+
+// });
 
 module.exports = router;
