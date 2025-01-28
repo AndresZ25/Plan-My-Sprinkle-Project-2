@@ -1,8 +1,8 @@
 window.onload = function() {
     const rsvpData = {
-        attending: 15,  // Example: 15 people attending
-        notAttending: 5, // Example: 5 people not attending
-        totalGuests: 20  // Example: 20 people in total
+        attending: 15,  
+        notAttending: 5, 
+        totalGuests: 20  
     };
 
     
@@ -10,13 +10,13 @@ window.onload = function() {
 
    
     const rsvpChart = new Chart(ctx, {
-        type: 'pie',  // Pie chart (you could also use 'bar', 'line', etc.)
+        type: 'pie',  
         data: {
-            labels: ['Attending', 'Not Attending'],  // Labels for the sections
+            labels: ['Attending', 'Not Attending'],  
             datasets: [{
                 label: 'RSVP Status',
-                data: [rsvpData.attending, rsvpData.notAttending],  // Data points for each section
-                backgroundColor: ['#36A2EB', '#FF6384'],  // Color for each section
+                data: [rsvpData.attending, rsvpData.notAttending],  
+                backgroundColor: ['#36A2EB', '#FF6384'],  
                 hoverOffset: 4
             }]
         },
