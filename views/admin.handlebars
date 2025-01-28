@@ -1,0 +1,27 @@
+<h1>Baby Shower Admin Dashboard</h1>
+<h2>Guest List</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Attendees</th>
+      <th>Dietary Preferences</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each guests}}
+    <tr>
+      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.attendees}}</td>
+      <td>{{this.dietaryPreferences}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<canvas id="rsvpChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Chart.js code for RSVP visualization
+</script>

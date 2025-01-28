@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Messages - Baby Shower</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Your custom styles -->
+</head>
+<body>
+    <h1>Send Messages to Guests</h1>
+
+    <!-- Form for sending messages -->
+    <form action="/api/messages" method="POST">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <label for="guest">Select Guest:</label>
+        <select id="guest" name="guest">
+            {{#each guests}}
+                <option value="{{email}}">{{name}}</option>
+            {{/each}}
+        </select>
+
+        <button type="submit">Send Message</button>
+    </form>
+
+    <h2>Sent Messages</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Guest</th>
+                <th>Message</th>
+                <th>Date Sent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each sentMessages}}
+            <tr>
+                <td>{{subject}}</td>
+                <td>{{guestName}}</td>
+                <td>{{message}}</td>
+                <td>{{sentAt}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <script>
+    
+    </script>
+</body>
+</html>
+
