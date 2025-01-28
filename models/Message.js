@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // You can use other services (e.g., SendGrid, Mailgun)
+  service: 'gmail', 
   auth: {
     user: 'your-email@gmail.com', 
     pass: 'your-email-password'   
@@ -12,8 +12,8 @@ const transporter = nodemailer.createTransport({
 
 async function sendInvitationEmail(guest) {
   const mailOptions = {
-    from: 'your-email@gmail.com',  // Sender email
-    to: guest.email,               // Recipient email
+    from: 'your-email@gmail.com',  
+    to: guest.email,               
     subject: 'Baby Shower Invitation',
     html: `
       <h1>You're Invited!</h1>
