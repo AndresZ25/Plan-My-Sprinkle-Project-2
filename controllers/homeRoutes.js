@@ -48,6 +48,13 @@ router.get('/admin', isAuthenticated, async (req, res) => {
   }
 });
 
+router.get('/rsvp', (req, res) => {
+  res.render('rsvp', { title: 'RSVP' }); // Pass the title or any other data
+});
+
+router.get('/rsvp/confirmation', (req, res) => {
+  res.render('confirmation', { title: 'RSVP Confirmation' });
+});
 
 
 // router.get('/admin', isAuthenticated, (req, res) => {

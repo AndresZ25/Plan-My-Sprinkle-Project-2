@@ -64,3 +64,24 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.rsvp-section {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .rsvp-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .rsvp-button:hover {
+    background-color: #45a049;
+  }
+  

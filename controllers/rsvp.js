@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const rsvpController = require('../controllers/rsvpController');
+const rsvpController = require('./api/rsvpController');
 
 // Event Routes
 router.get('/events', rsvpController.getEvents);
