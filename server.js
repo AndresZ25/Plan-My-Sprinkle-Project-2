@@ -10,17 +10,13 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const rsvpRoutes = require('./controllers/api/rsvpRoutes');
 
-
 const app = express();
 const PORT = process.env.PORT || 3001;
-
 
 const hbs = exphbs.create({ helpers });
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
-
 
 const sessionConfig = {
   secret: process.env.SESSION_SECRET, 
@@ -45,19 +41,20 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', rsvpRoutes);
 
-// Use routes
+// ✅ ADD `/admin` ROUTE BEFORE `app.use(routes);`
+app.get('/admin', (req, res) => {
+  res.render('admin', { title: 'Admin Panel' });
+});
+
+// Use main application routes
 console.log('Routes:', routes); // Debug log
 app.use(routes);
-
 
 sequelize.sync({ force: false }).then(() => {
    app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
