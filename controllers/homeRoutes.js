@@ -33,7 +33,11 @@ router.get('/login', (req, res) => {
 });
 
 
-router.get('/admin', isAuthenticated, async (req, res) => {
+
+//login 
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
   try {
     
     const guestData = await Guest.findAll().catch((err) => {
@@ -55,11 +59,5 @@ router.get('/rsvp', (req, res) => {
 router.get('/rsvp/confirmation', (req, res) => {
   res.render('confirmation', { title: 'RSVP Confirmation' });
 });
-
-
-// router.get('/admin', isAuthenticated, (req, res) => {
-//   res.render('admin',{guests:[{name:"Andres"}]}); 
-
-// });
 
 module.exports = router;
