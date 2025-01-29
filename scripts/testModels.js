@@ -1,7 +1,7 @@
 require('dotenv').config();
 const sequelize = require('../config/connection');
 const User = require('../models/User');
-const Guest = require('../models/Guest');
+const Guest = require('../models/guest');
 
 const testModels = async () => {
   try {
