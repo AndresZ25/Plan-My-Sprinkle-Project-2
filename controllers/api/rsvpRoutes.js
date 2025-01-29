@@ -12,7 +12,7 @@ router.delete('/rsvp/:eventId/:guestEmail', rsvpController.cancelRSVP);
 router.get('/rsvp/guest/:guestEmail', rsvpController.getGuestRSVP);
 
 
-const { Guest } = require('../../models/Guest'); // Assuming you have a Guest model
+const { Guest } = require('../../models'); // Assuming you have a Guest model
 router.post('/', async (req, res) => {
   try {
     console.log(req.body); // Log the incoming data for debugging

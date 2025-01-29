@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const Guest = require('../models/Guest'); 
+const Guest = require('../models/guest'); 
 
 
 const isAuthenticated = (req, res, next) => {
