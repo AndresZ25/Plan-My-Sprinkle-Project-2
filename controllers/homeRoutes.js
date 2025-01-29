@@ -40,17 +40,37 @@ router.post('/login', async (req, res) => {
 
   try {
     
-    const guestData = await Guest.findAll().catch((err) => {
-      res.json(err);
-    });
-
-    const guests = guestData.map((guest) => guest.get({ plain: true }));
-    
+    const user = await User.findOne({ where: { username } });
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    const validPassword = await user.checkPassword(password);
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Invalid password' });
+    }
+    req.session.save(() => {
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      req.session.role = user.role;
+    })
     res.render('admin', { guests });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+router.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error logging out' });
+    }
+    res.redirect('/');
+  });
+})
+
+  router.get('/admin', isAuthenticated, (req, res) => {
+    res.render('admin'); 
+  })
 
 router.get('/rsvp', (req, res) => {
   res.render('rsvp', { title: 'RSVP' }); 

@@ -12,18 +12,15 @@ router.delete('/rsvp/:eventId/:guestEmail', rsvpController.cancelRSVP);
 router.get('/rsvp/guest/:guestEmail', rsvpController.getGuestRSVP);
 
 
-const { Guest } = require('../../models'); // Assuming you have a Guest model
+const { RSVP } = require('../../models'); // Assuming you have a Guest model
 router.post('/', async (req, res) => {
   try {
     console.log(req.body); // Log the incoming data for debugging
 
     // Create a new guest record in the database
-    const newGuest = await Guest.create({
-      name: req.body.name,
-      rsvp_status: req.body.rsvp_status === 'true', // Convert the checkbox value to a boolean
-    });
+    const newRSVP = await RSVP.create(req.body);
 
-    console.log('New Guest:', newGuest); // Log the new guest data
+    console.log('New RSVP:', newRSVP); // Log the new guest data
 
     // Redirect to confirmation page
     res.redirect('/rsvp/confirmation');
