@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const { User } = require('../models'); 
+const { User } = require('../models/User'); 
 
 
 
@@ -23,21 +23,6 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    const user = await User.create({
-      username: req.body.username,
-      password: hashedPassword,
-      role: req.body.role || 'user', 
-    });
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating user', err });
-  }
-});
-
-
-router.post('/login', async (req, res) => {
-  try {
     const user = await User.findOne({ where: { username: req.body.username } });
 
     if (!user) {
@@ -53,7 +38,7 @@ router.post('/login', async (req, res) => {
       req.session.userId = user.id;
       req.session.username = user.username;
       req.session.role = user.role; 
-      res.json({ message: 'Login successful' });
+      res.redirect('/admin');
     });
   } catch (err) {
     res.status(500).json({ message: 'Login failed', err });
@@ -61,7 +46,7 @@ router.post('/login', async (req, res) => {
 });
 
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ message: 'Error logging out' });

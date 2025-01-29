@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plan My Sprinkle</title>
-  <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
@@ -18,17 +18,24 @@
     </h2>
     
  <nav>
-    {{#if session.userId}}
-      <a href="/logout">Logout</a>
-    {{else}}
-      <a href="/login">Login</a>
-    {{/if}}
-  </nav>
+  {{#if session.userId}}
+    <a href="/user/logout" method="POST">Logout</a>
+  {{else}}
+    <a href="/login">Login</a>
+  {{/if}}
+   <a href="/rsvp">RSVP</a>
+</nav>
 
   </header>
   <main class="container container-fluid mt-5">
    
     {{{ body }}}
+      <!-- RSVP Button -->
+      <div class="rsvp-section">
+        <h1>Welcome to the Baby Shower!</h1>
+        <p>We are so excited to celebrate with you. Please RSVP to let us know you're coming!</p>
+        <a href="/rsvp" class="rsvp-button">RSVP Now</a>
+      </div>
   </main>
   <footer>
       <p>
