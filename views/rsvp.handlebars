@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSVP for Baby Shower</title>
-    <link rel="stylesheet" href="/styles.css">
+    <title>RSVP</title>
 </head>
 <body>
-    <h1>Baby Shower RSVP</h1>
-    <form action="/api/rsvp" method="POST">
-        
+
+    <form id="rsvp-form">
         <input type="hidden" name="event_id" value="1">
 
-        
         <label for="guest_name">Your Name:</label>
         <input type="text" id="guest_name" name="guest_name" required>
 
-        
         <label for="guest_email">Your Email:</label>
         <input type="email" id="guest_email" name="guest_email" required>
 
-        
         <label for="attending">Will you attend?</label>
         <select id="attending" name="attending" required>
             <option value="yes">Yes</option>
@@ -29,5 +24,9 @@
 
         <button type="submit">Submit RSVP</button>
     </form>
+
+    <!-- Link your JavaScript file -->
+    <script src="/rsvp-client.js"></script>
+
 </body>
 </html>
