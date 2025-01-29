@@ -32,10 +32,6 @@ router.get('/login', (req, res) => {
 });
 
 
-
-
-
-
 //login 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -79,7 +75,5 @@ router.get('/admin', isAuthenticated, (req, res) => {
   res.render('admin'); 
 
 });
-
-
 
 module.exports = router;
