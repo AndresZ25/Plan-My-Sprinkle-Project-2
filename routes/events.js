@@ -1,7 +1,6 @@
-// routes/events.js
 const express = require('express');
 const router = express.Router();
-const { Event, RSVP } = require('../models'); // Assuming Event and RSVP are Sequelize models
+const { Event, RSVP } = require('../models'); 
 
 router.post('/', async (req, res) => {
     try {
@@ -37,7 +36,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Update an event by ID
+
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -54,7 +53,7 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// Delete an event by ID
+
 router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -70,7 +69,7 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// RSVP to an event
+
 router.post('/:id/rsvp', async (req, res) => {
     try {
         const { id } = req.params;

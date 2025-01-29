@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/rsvp', (req, res) => {
-  res.render('rsvp', { title: 'RSVP' }); // Pass the title or any other data
+  res.render('rsvp', { title: 'RSVP' }); 
 });
 
 router.get('/rsvp/confirmation', (req, res) => {

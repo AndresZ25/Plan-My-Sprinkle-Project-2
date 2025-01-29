@@ -8,7 +8,9 @@ const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const rsvpRoutes = require('./controllers/api/rsvpRoutes');
+
+const rsvpRoutes = require('./controllers/api/rsvpRoutes');  
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -35,7 +37,6 @@ const sessionConfig = {
 
 app.use(session(sessionConfig)); 
 
-// Middleware to pass session data to views
 app.use((req, res, next) => {
   res.locals.session = req.session; 
   next();
@@ -45,16 +46,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', rsvpRoutes);
+app.use('/api/rsvps', rsvpRoutes); // 🔥 
 
-// ✅ ADD `/admin` ROUTE BEFORE `app.use(routes);`
-app.get('/admin', (req, res) => {
-  res.render('admin', { title: 'Admin Panel' });
-});
-
-// Use main application routes
-console.log('Routes:', routes); // Debug log
+//  main routes
 app.use(routes);
+
+console.log('✅ Routes successfully loaded:', routes);
+console.log('✅ RSVP Routes successfully loaded:', rsvpRoutes);
+
+
 
 sequelize.sync({ force: false }).then(() => {
    app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

@@ -7,14 +7,13 @@ const testModels = async () => {
   try {
     await sequelize.sync({ force: true });
 
-    // Create a test user
+    
     const testUser = await User.create({
       username: 'TestUser',
       password: 'password123',
     });
     console.log('User created:', testUser.toJSON());
 
-    // Create a test guest
     const testGuest = await Guest.create({
       name: 'Jane Doe',
       rsvp_status: true,
